@@ -81,7 +81,7 @@ const Chat = () => {
                 </Grid>
             </Grid>
             <Grid item>
-                <Paper>
+                {/* <Paper>
                     <List sx={{ width: '100%', minWidth: 700, bgcolor: 'background.paper' }}>
                         <>
                             <ListItem alignItems="flex-start">
@@ -97,7 +97,7 @@ const Chat = () => {
                             <Divider variant="inset" component="li" />
                         </>
                     </List>
-                </Paper>
+                </Paper> */}
                 {fetchLoading ? (
                     <Grid container justifyContent="center" alignItems="center">
                         <Grid item>

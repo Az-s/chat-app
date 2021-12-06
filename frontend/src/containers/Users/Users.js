@@ -28,7 +28,7 @@ const Users = () => {
             <Divider variant="middle" />
             <Box sx={{ m: 2 }}>
                 <List>
-                    <ListItem disablePadding>
+                    {/* <ListItem disablePadding>
                         <ListItemButton>
                             <ListItemText primary="John" />
                         </ListItemButton>
@@ -37,7 +37,7 @@ const Users = () => {
                         <ListItemButton component="a" href="#simple-list">
                             <ListItemText primary="Mark" />
                         </ListItemButton>
-                    </ListItem>
+                    </ListItem> */}
                     {fetchLoading ? (
                         <Grid container justifyContent="center" alignItems="center">
                             <Grid item>
