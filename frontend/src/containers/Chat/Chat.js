@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Paper, Typography, List, ListItem, ListItemText, Divider } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -9,14 +9,59 @@ import Progress from '../../components/UI/Progress/Progress';
 
 const Chat = () => {
     const dispatch = useDispatch();
+    const ws = useRef(null);
+
 
     const messages = useSelector(state => state.chat.messages);
+    const message = useSelector(state => state.chat.message);
     const fetchLoading = useSelector(state => state.chat.fetchLoading);
     const user = useSelector(state => state.users.user);
 
     useEffect(() => {
         dispatch(fetchMessages());
     }, [dispatch]);
+
+    useEffect(() => {
+        ws.current = new WebSocket('ws://localhost:8000/chat');
+
+        ws.current.onmessage = e => {
+            const decodedMessage = JSON.parse(e.data);
+
+            switch (decodedMessage.type) {
+                case 'NEW_MESSAGE':
+                    messages(prev => [
+                        ...prev,
+                        decodedMessage.message,
+                    ]);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }, [])
+
+    const usernameSetHandler = event => {
+        event.preventDefault();
+
+        const message = JSON.stringify({
+            type: 'SET_USERNAME',
+            user
+        });
+
+        ws.current.send(message);
+    };
+
+    const sendMessageHandler = event => {
+        event.preventDefault();
+
+        const message = JSON.stringify({
+            type: 'CREATE_MESSAGE',
+            message
+        });
+
+        ws.current.send(message);
+    };
 
 
     const deleteMessage = async (id) => {
