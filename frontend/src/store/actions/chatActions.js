@@ -29,7 +29,7 @@ export const fetchMessages = () => {
     return async dispatch => {
         try {
             dispatch(fetchMessagesRequest());
-            const response = await axiosApi.get('/messages');
+            const response = await axiosApi.get('/chat');
             dispatch(fetchMessagesSuccess(response.data));
         } catch (error) {
             dispatch(fetchMessagesFailure(error));
@@ -41,7 +41,7 @@ export const fetchMessage = id => {
     return async dispatch => {
         try {
             dispatch(fetchMessageRequest());
-            const response = await axiosApi.get('/messages/' + id);
+            const response = await axiosApi.get('/chat/' + id);
             dispatch(fetchMessageSuccess(response.data));
         } catch (e) {
             dispatch(fetchMessageFailure());
@@ -54,7 +54,7 @@ export const deleteMessage = (id) => {
         try {
             dispatch(fetchMessageRequest());
 
-            await axiosApi.delete('/messages/' + id);
+            await axiosApi.delete('/chat/' + id);
             dispatch(fetchMessageSuccess());
             toast.info('Message deleted');
         } catch (e) {
@@ -67,7 +67,7 @@ export const createMessage = messageData => {
     return async dispatch => {
         try {
             dispatch(createMessageRequest());
-            await axiosApi.post('/messages', messageData);
+            await axiosApi.post('/chat', messageData);
             dispatch(createMessageSuccess());
             toast.success('Message created');
         } catch (e) {
