@@ -7,8 +7,8 @@ import axiosApi from "../axiosApi";
 
 
 const rootReducer = combineReducers({
-  'chat': chatReducer,
-  'users': usersReducer,
+  chat: chatReducer,
+  users: usersReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

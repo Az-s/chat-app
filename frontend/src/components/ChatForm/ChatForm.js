@@ -21,8 +21,6 @@ const ChatForm = () => {
         });
     };
 
-    console.log(state)
-
     const onSubmit = async (e) => {
         try {
             await dispatch(createMessage({ ...state }));

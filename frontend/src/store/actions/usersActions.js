@@ -13,6 +13,10 @@ export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 export const CLEAR_ERROR_USER = 'CLEAR_ERROR_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
+export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
+export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
+export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
+
 export const registerUserRequest = () => ({type: REGISTER_USER_REQUEST});
 export const registerUserSuccess = user => ({type: REGISTER_USER_SUCCESS, payload: user});
 export const registerUserFailure = error => ({type: REGISTER_USER_FAILURE, payload: error});
@@ -22,6 +26,10 @@ export const loginUserSuccess = user => ({type: LOGIN_USER_SUCCESS, payload: use
 export const loginUserFailure = error => ({type: LOGIN_USER_FAILURE, payload: error});
 
 export const clearErrorUser = () => ({type: CLEAR_ERROR_USER});
+
+export const fetchUsersRequest = () => ({ type: FETCH_USERS_REQUEST });
+export const fetchUsersSuccess = users => ({ type: FETCH_USERS_SUCCESS, payload: users });
+export const fetchUsersFailure = () => ({ type: FETCH_USERS_FAILURE });
 
 export const registerUser = userData => {
   return async dispatch => {
@@ -76,4 +84,16 @@ export const logoutUser = () => {
     dispatch({type: LOGOUT_USER});
     dispatch(historyPush('/'));
   };
+};
+
+export const fetchUsers = () => {
+  return async dispatch => {
+      try {
+          dispatch(fetchUsersRequest());
+          const response = await axiosApi.get('/users');
+          dispatch(fetchUsersSuccess(response.data));
+      } catch (error) {
+          dispatch(fetchUsersFailure(error));
+      }
+  }
 };

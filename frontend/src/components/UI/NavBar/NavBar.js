@@ -1,15 +1,27 @@
 import React from 'react';
-import { AppBar, Box, Toolbar, Typography, Button, } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography, Grid, } from '@mui/material';
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import UserMenu from './Menu/UserMenu';
+import AnonymousMenu from './Menu/AnonymousMenu';
 
 const NavBar = () => {
+    const user = useSelector(state => state.users.user);
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" sx={{ color: 'white', textDecoration: 'none', flexGrow: 1 }} component={Link} to="/">
                         Chat
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    <Grid item>
+                        {user ? (
+                            <UserMenu user={user} />
+                        ) : (
+                            <AnonymousMenu />
+                        )}
+                    </Grid>
                 </Toolbar>
             </AppBar>
         </Box>
