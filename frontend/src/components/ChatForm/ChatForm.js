@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { TextField, Grid, Button, Stack } from '@mui/material';
 import { useDispatch } from "react-redux";
-import { createMessage } from '../../store/actions/chatActions';
+// import { createMessage } from '../../store/actions/chatActions';
 import SendIcon from '@mui/icons-material/Send';
 
-const ChatForm = () => {
+const ChatForm = ({onSubmit}) => {
     const dispatch = useDispatch()
 
     const [state, setState] = useState({
@@ -22,11 +22,13 @@ const ChatForm = () => {
     };
 
     const onSubmit = async (e) => {
-        try {
-            await dispatch(createMessage({ ...state }));
-        } catch (e) {
-            console.log('error happened');
-        }
+        // try {
+        //     await dispatch(createMessage({ ...state }));
+        // } catch (e) {
+        //     console.log('error happened');
+        // }
+        e.preventDefault();
+        onSubmit(state);
     };
 
     return (

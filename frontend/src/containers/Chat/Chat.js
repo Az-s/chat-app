@@ -41,7 +41,7 @@ const Chat = () => {
 
     }, [])
 
-    const usernameSetHandler = event => {
+    const usernameHandler = event => {
         event.preventDefault();
 
         const message = JSON.stringify({
@@ -135,7 +135,9 @@ const Chat = () => {
                 ))}
             </Grid>
             <Grid item m={2}>
-                <ChatForm />
+                <ChatForm
+                    onSubmit={sendMessageHandler}
+                />
             </Grid>
         </Grid>
     )
